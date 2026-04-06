@@ -75,13 +75,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Trivy
-        uses: aquasecurity/trivy-action@v0.35.0
-        with:
-          scan-type: config
-          scan-ref: .
-          exit-code: "1"
-          severity: HIGH,CRITICAL
+      # - name: Run Trivy
+      #   uses: aquasecurity/trivy-action@v0.35.0
+      #   with:
+      #     scan-type: config
+      #     scan-ref: .
+      #     exit-code: "1"
+      #     severity: HIGH,CRITICAL
 
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@v12

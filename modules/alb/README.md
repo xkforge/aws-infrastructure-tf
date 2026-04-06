@@ -4,7 +4,7 @@ Terraform module for creating an AWS Application Load Balancer with target group
 
 ## Features
 
-- Application Load Balancer (internet-facing or internal)
+- Internet-facing Application Load Balancer
 - Target group with configurable health checks
 - HTTP listener with permanent redirect (301) to HTTPS
 - HTTPS listener with ACM certificate (TLS 1.3 policy by default)
@@ -40,7 +40,6 @@ module "alb" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|----------|
 | `name` | Name of the ALB | `string` | — | yes |
-| `internal` | Whether the ALB is internal | `bool` | `false` | no |
 | `security_group_ids` | Security group IDs for the ALB | `list(string)` | — | yes |
 | `subnet_ids` | Subnet IDs (minimum 2 AZs) | `list(string)` | — | yes |
 | `vpc_id` | VPC ID for the target group | `string` | — | yes |
