@@ -73,6 +73,7 @@ module "alb" {
 | `listener_port` | HTTP listener port | `number` | `80` | no |
 | `certificate_arn` | ACM certificate ARN for HTTPS | `string` | `null` | no |
 | `ssl_policy` | SSL policy for HTTPS listener | `string` | `"ELBSecurityPolicy-TLS13-1-2-2021-06"` | no |
+| `drop_invalid_header_fields` | Drop invalid HTTP headers | `bool` | `true` | no |
 | `tags` | Additional tags | `map(string)` | `{}` | no |
 
 ## Outputs

@@ -122,6 +122,12 @@ variable "ssl_policy" {
   default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
 
+variable "drop_invalid_header_fields" {
+  description = "Indicates whether HTTP headers with header fields that are not valid are removed by the load balancer (true) or routed to targets (false)"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "Additional tags to apply to ALB resources"
   type        = map(string)

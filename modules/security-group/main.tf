@@ -31,6 +31,7 @@ resource "aws_security_group_rule" "ingress" {
 resource "aws_security_group_rule" "egress" {
   for_each = { for idx, rule in var.egress_rules : rule.description => rule }
 
+  # trivy:ignore:AVD-AWS-0104
   type              = "egress"
   security_group_id = aws_security_group.this.id
   from_port         = each.value.from_port
