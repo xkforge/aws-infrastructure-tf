@@ -43,15 +43,7 @@ variable "egress_rules" {
     ipv6_cidr_blocks         = optional(list(string))
     source_security_group_id = optional(string)
   }))
-  default = [
-    {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      description = "Allow all outbound traffic"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
+  default = []
 }
 
 variable "tags" {

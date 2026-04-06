@@ -29,6 +29,16 @@ module "web_sg" {
     }
   ]
 
+  egress_rules = [
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      description = "Allow HTTPS outbound"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+
   tags = {
     Environment = "production"
     ManagedBy   = "terraform"
@@ -44,7 +54,7 @@ module "web_sg" {
 | `description` | Description of the security group | `string` | `"Managed by Terraform"` | no |
 | `vpc_id` | ID of the VPC | `string` | — | yes |
 | `ingress_rules` | List of ingress rule objects | `list(object)` | `[]` | no |
-| `egress_rules` | List of egress rule objects | `list(object)` | Allow all outbound | no |
+| `egress_rules` | List of egress rule objects | `list(object)` | `[]` | no |
 | `tags` | Additional tags to apply | `map(string)` | `{}` | no |
 
 ### Rule Object

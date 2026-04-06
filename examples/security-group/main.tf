@@ -26,6 +26,16 @@ module "web_sg" {
     },
   ]
 
+  egress_rules = [
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      description = "Allow HTTPS outbound"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+  ]
+
   tags = {
     Environment = "dev"
     ManagedBy   = "terraform"
