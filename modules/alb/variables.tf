@@ -5,12 +5,6 @@ variable "name" {
   nullable = false
 }
 
-variable "internal" {
-  description = "Whether the ALB is internal (true) or internet-facing (false)"
-  type        = bool
-  default     = false
-}
-
 variable "security_group_ids" {
   description = "List of security group IDs to attach to the ALB"
   type        = list(string)
@@ -111,9 +105,10 @@ variable "listener_port" {
 }
 
 variable "certificate_arn" {
-  description = "ARN of the ACM certificate for HTTPS. When set, HTTP traffic is redirected to HTTPS"
+  description = "ARN of the ACM certificate for HTTPS. HTTP traffic is always redirected to HTTPS"
   type        = string
-  default     = null
+
+  nullable = false
 }
 
 variable "ssl_policy" {

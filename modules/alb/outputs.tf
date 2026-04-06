@@ -29,6 +29,6 @@ output "http_listener_arn" {
 }
 
 output "https_listener_arn" {
-  description = "ARN of the HTTPS listener (null if no certificate is configured)"
-  value       = try(aws_lb_listener.https[0].arn, null)
+  description = "ARN of the HTTPS listener"
+  value       = aws_lb_listener.https.arn
 }

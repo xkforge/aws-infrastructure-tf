@@ -9,6 +9,7 @@ module "alb" {
   vpc_id             = "vpc-0123456789abcdef0"
   subnet_ids         = ["subnet-aaa111", "subnet-bbb222"]
   security_group_ids = ["sg-0123456789abcdef0"]
+  certificate_arn    = "arn:aws:acm:us-east-1:123456789012:certificate/abc-def-123"
 
   target_group_port     = 8080
   target_group_protocol = "HTTP"
