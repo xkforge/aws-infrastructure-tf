@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/xkforge/aws-infrastructure-tf/compare/v1.0.0...v1.1.0) (2026-04-14)
+
+
+### Features
+
+* **alb:** support configurable listener actions ([14b70ef](https://github.com/xkforge/aws-infrastructure-tf/commit/14b70ef1657bd4f3c6383351b05a628a1a1625d2))
+
 ## 1.0.0 (2026-04-06)
 
 
