@@ -128,3 +128,55 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "http_listener_default_actions" {
+  description = "Default actions for HTTP listener"
+  type = list(object({
+    type             = string
+    target_group_arn = optional(string)
+
+    redirect = optional(object({
+      port        = optional(string, "443")
+      protocol    = optional(string, "HTTPS")
+      status_code = optional(string, "HTTP_301")
+      host        = optional(string)
+      path        = optional(string)
+      query       = optional(string)
+    }))
+
+    # fixed_response = optional(object({
+    #   content_type = optional(string, "text/plain")
+    #   message_body = optional(string, "Not Found")
+    #   status_code  = optional(string, "404")
+    # }))
+  }))
+  default = [
+    {
+      type = "redirect"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+  ]
+}
+
+variable "https_listener_default_actions" {
+  description = "Default actions for HTTPS listener"
+  type = list(object({
+    type             = string
+    target_group_arn = optional(string)
+
+    fixed_response = optional(object({
+      content_type = optional(string, "text/plain")
+      message_body = optional(string, "Not Found")
+      status_code  = optional(string, "404")
+    }))
+  }))
+  default = [
+    {
+      type = "forward"
+    }
+  ]
+}

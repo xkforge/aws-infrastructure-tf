@@ -58,13 +58,22 @@ resource "aws_lb_listener" "http" {
   port              = var.listener_port
   protocol          = "HTTP"
 
-  default_action {
-    type = "redirect"
+  dynamic "default_action" {
+    for_each = var.http_listener_default_actions
+    content {
+      type = default_action.value.type
 
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
+      dynamic "redirect" {
+        for_each = default_action.value.type == "redirect" && try(default_action.value.redirect, null) != null ? [default_action.value.redirect] : []
+        content {
+          port        = try(redirect.value.port, null)
+          protocol    = try(redirect.value.protocol, null)
+          status_code = try(redirect.value.status_code, null)
+          host        = try(redirect.value.host, null)
+          path        = try(redirect.value.path, null)
+          query       = try(redirect.value.query, null)
+        }
+      }
     }
   }
 
@@ -78,9 +87,25 @@ resource "aws_lb_listener" "https" {
   ssl_policy        = var.ssl_policy
   certificate_arn   = var.certificate_arn
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
+  dynamic "default_action" {
+    for_each = var.https_listener_default_actions
+    content {
+      type = default_action.value.type
+
+      target_group_arn = default_action.value.type == "forward" ? coalesce(
+        try(default_action.value.target_group_arn, null),
+        aws_lb_target_group.this.arn
+      ) : null
+
+      dynamic "fixed_response" {
+        for_each = default_action.value.type == "fixed-response" && try(default_action.value.fixed_response, null) != null ? [default_action.value.fixed_response] : []
+        content {
+          content_type = try(fixed_response.value.content_type, null)
+          message_body = try(fixed_response.value.message_body, null)
+          status_code  = try(fixed_response.value.status_code, null)
+        }
+      }
+    }
   }
 
   tags = var.tags
